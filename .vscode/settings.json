@@ -1,0 +1,9 @@
+{
+    "liveServer.settings.port": 5502,
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.wordWrap": "on",
+    "editor.fontFamily": "Consolas, 'Courier New', monospace",
+    "editor.fontSize": 14,
+    "files.eol": "auto"
+}
