@@ -1,0 +1,11 @@
+.cardBottle {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  background-color: #f9f9f9;
+}
+
+.cardBottle img {
+  width: 300px;
+}

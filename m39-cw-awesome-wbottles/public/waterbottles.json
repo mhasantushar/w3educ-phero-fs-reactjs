@@ -1,0 +1,352 @@
+[
+    {
+        "id": 1,
+        "name": "Classic Plastic Bottle",
+        "capacity": "500ml",
+        "material": "PET Plastic",
+        "price": 30
+    },
+    {
+        "id": 2,
+        "name": "Steel Thermo Flask",
+        "capacity": "1L",
+        "material": "Stainless Steel",
+        "price": 850
+    },
+    {
+        "id": 3,
+        "name": "Glass Water Bottle",
+        "capacity": "750ml",
+        "material": "Glass",
+        "price": 450
+    },
+    {
+        "id": 4,
+        "name": "Sports Sipper",
+        "capacity": "600ml",
+        "material": "Tritan Plastic",
+        "price": 200
+    },
+    {
+        "id": 5,
+        "name": "Insulated Travel Bottle",
+        "capacity": "1.2L",
+        "material": "Aluminium",
+        "price": 1200
+    },
+    {
+        "id": 6,
+        "name": "Camping Gear Bottle",
+        "capacity": "2L",
+        "material": "PET Plastic",
+        "price": 1909
+    },
+    {
+        "id": 7,
+        "name": "Thermal Mug Bottle",
+        "capacity": "2L",
+        "material": "PET Plastic",
+        "price": 1736
+    },
+    {
+        "id": 8,
+        "name": "Chilled Sports Flask",
+        "capacity": "900ml",
+        "material": "Tritan Plastic",
+        "price": 766
+    },
+    {
+        "id": 9,
+        "name": "Chilled Sports Flask",
+        "capacity": "400ml",
+        "material": "Glass",
+        "price": 219
+    },
+    {
+        "id": 10,
+        "name": "Child Safe Bottle",
+        "capacity": "900ml",
+        "material": "Aluminium",
+        "price": 700
+    },
+    {
+        "id": 11,
+        "name": "Workout Gym Sipper",
+        "capacity": "750ml",
+        "material": "Stainless Steel",
+        "price": 1615
+    },
+    {
+        "id": 12,
+        "name": "Mini Pocket Bottle",
+        "capacity": "1L",
+        "material": "Bamboo",
+        "price": 733
+    },
+    {
+        "id": 13,
+        "name": "Extra Large Flask",
+        "capacity": "500ml",
+        "material": "Bamboo",
+        "price": 164
+    },
+    {
+        "id": 14,
+        "name": "Urban Style Bottle",
+        "capacity": "2L",
+        "material": "Bamboo",
+        "price": 1253
+    },
+    {
+        "id": 15,
+        "name": "Camping Gear Bottle",
+        "capacity": "600ml",
+        "material": "Tritan Plastic",
+        "price": 66
+    },
+    {
+        "id": 16,
+        "name": "Extra Large Flask",
+        "capacity": "900ml",
+        "material": "Stainless Steel",
+        "price": 315
+    },
+    {
+        "id": 17,
+        "name": "Eco Bamboo Bottle",
+        "capacity": "600ml",
+        "material": "PET Plastic",
+        "price": 1645
+    },
+    {
+        "id": 18,
+        "name": "Glow in Dark Bottle",
+        "capacity": "250ml",
+        "material": "Silicon",
+        "price": 1183
+    },
+    {
+        "id": 19,
+        "name": "Outdoor Climber Flask",
+        "capacity": "1.5L",
+        "material": "Aluminium",
+        "price": 259
+    },
+    {
+        "id": 20,
+        "name": "Smart Sensor Bottle",
+        "capacity": "800ml",
+        "material": "Aluminium",
+        "price": 98
+    },
+    {
+        "id": 21,
+        "name": "Luxury Gold Bottle",
+        "capacity": "800ml",
+        "material": "Ceramic",
+        "price": 55
+    },
+    {
+        "id": 22,
+        "name": "Child Safe Bottle",
+        "capacity": "2L",
+        "material": "Silicon",
+        "price": 1968
+    },
+    {
+        "id": 23,
+        "name": "Premium Designer Flask",
+        "capacity": "700ml",
+        "material": "Tritan Plastic",
+        "price": 352
+    },
+    {
+        "id": 24,
+        "name": "Crystal Glass Bottle",
+        "capacity": "500ml",
+        "material": "Ceramic",
+        "price": 1469
+    },
+    {
+        "id": 25,
+        "name": "Workout Gym Sipper",
+        "capacity": "600ml",
+        "material": "Tritan Plastic",
+        "price": 624
+    },
+    {
+        "id": 26,
+        "name": "Smart Sensor Bottle",
+        "capacity": "1.2L",
+        "material": "Silicon",
+        "price": 1881
+    },
+    {
+        "id": 27,
+        "name": "Classic Transparent Bottle",
+        "capacity": "300ml",
+        "material": "PET Plastic",
+        "price": 1447
+    },
+    {
+        "id": 28,
+        "name": "Foldable Silicon Bottle",
+        "capacity": "750ml",
+        "material": "Ceramic",
+        "price": 586
+    },
+    {
+        "id": 29,
+        "name": "Premium Designer Flask",
+        "capacity": "500ml",
+        "material": "Glass",
+        "price": 2000
+    },
+    {
+        "id": 30,
+        "name": "Wide Mouth Flask",
+        "capacity": "2L",
+        "material": "Silicon",
+        "price": 637
+    },
+    {
+        "id": 31,
+        "name": "Urban Style Bottle",
+        "capacity": "750ml",
+        "material": "Glass",
+        "price": 1050
+    },
+    {
+        "id": 32,
+        "name": "Extra Large Flask",
+        "capacity": "800ml",
+        "material": "Tritan Plastic",
+        "price": 540
+    },
+    {
+        "id": 33,
+        "name": "Thermal Mug Bottle",
+        "capacity": "350ml",
+        "material": "Silicon",
+        "price": 647
+    },
+    {
+        "id": 34,
+        "name": "Premium Wooden Bottle",
+        "capacity": "350ml",
+        "material": "Ceramic",
+        "price": 1910
+    },
+    {
+        "id": 35,
+        "name": "Picnic Family Bottle",
+        "capacity": "600ml",
+        "material": "Stainless Steel",
+        "price": 976
+    },
+    {
+        "id": 36,
+        "name": "Stylish Urban Flask",
+        "capacity": "1.5L",
+        "material": "Bamboo",
+        "price": 559
+    },
+    {
+        "id": 37,
+        "name": "Workout Gym Sipper",
+        "capacity": "250ml",
+        "material": "Bamboo",
+        "price": 1410
+    },
+    {
+        "id": 38,
+        "name": "Outdoor Climber Flask",
+        "capacity": "400ml",
+        "material": "Aluminium",
+        "price": 1959
+    },
+    {
+        "id": 39,
+        "name": "Office Slim Bottle",
+        "capacity": "1L",
+        "material": "Bamboo",
+        "price": 626
+    },
+    {
+        "id": 40,
+        "name": "Filtered Water Bottle",
+        "capacity": "600ml",
+        "material": "Silicon",
+        "price": 729
+    },
+    {
+        "id": 41,
+        "name": "Mountain Hiker Flask",
+        "capacity": "900ml",
+        "material": "Glass",
+        "price": 213
+    },
+    {
+        "id": 42,
+        "name": "Mountain Hiker Flask",
+        "capacity": "1.2L",
+        "material": "Bamboo",
+        "price": 1773
+    },
+    {
+        "id": 43,
+        "name": "Premium Matte Bottle",
+        "capacity": "600ml",
+        "material": "Aluminium",
+        "price": 715
+    },
+    {
+        "id": 44,
+        "name": "Foldable Silicon Bottle",
+        "capacity": "750ml",
+        "material": "Bamboo",
+        "price": 125
+    },
+    {
+        "id": 45,
+        "name": "Cute Cartoon Bottle",
+        "capacity": "700ml",
+        "material": "Tritan Plastic",
+        "price": 1645
+    },
+    {
+        "id": 46,
+        "name": "Gradient Color Bottle",
+        "capacity": "300ml",
+        "material": "Aluminium",
+        "price": 233
+    },
+    {
+        "id": 47,
+        "name": "Smart LED Bottle",
+        "capacity": "750ml",
+        "material": "Ceramic",
+        "price": 820
+    },
+    {
+        "id": 48,
+        "name": "Foldable Silicon Bottle",
+        "capacity": "2L",
+        "material": "Tritan Plastic",
+        "price": 559
+    },
+    {
+        "id": 49,
+        "name": "Digital Temp Bottle",
+        "capacity": "1.2L",
+        "material": "Ceramic",
+        "price": 1517
+    },
+    {
+        "id": 50,
+        "name": "Office Slim Bottle",
+        "capacity": "700ml",
+        "material": "Glass",
+        "price": 999
+    }
+]

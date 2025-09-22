@@ -1,0 +1,17 @@
+.wrapcart {
+  border: 2px solid purple;
+  margin: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: left;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  width: full;
+}
+
+.wrapcart img {
+  width: 100px;
+  display: block;
+  margin-bottom: 8px;
+}
