@@ -1,0 +1,6 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+.btn-toggle-view{
+  @apply border-0 min-w-30 btn btn-primary;
+}
