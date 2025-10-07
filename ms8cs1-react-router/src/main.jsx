@@ -2,18 +2,21 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App.jsx';
+import axios from 'axios';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import Home from './pages/Home.jsx';
 import Contact from './pages/Contact.jsx';
 import About from './pages/About.jsx';
 import RootLayout from './layouts/Rootlayout.jsx';
 import PlantInfo from './pages/PlantInfo.jsx';
-import axios from 'axios';
+import Loading from './components/Loading.jsx';
+import Cart from './pages/Cart.jsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
+    hydrateFallbackElement: <Loading/>,
     children: [
       {
         index: true,
@@ -36,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: '/about',
         element: <About />,
+      },
+      {
+        path:'/cart',
+        element: <Cart/>
       },
     ],
   },

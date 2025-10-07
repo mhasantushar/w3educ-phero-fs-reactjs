@@ -1,5 +1,6 @@
 import React from "react";
-import { useLoaderData } from "react-router";
+import { useState } from "react";
+import { useLoaderData, useLocation } from "react-router";
 // import axios from "axios";
 // import { useEffect } from "react";
 // import { useState } from "react";
@@ -29,6 +30,17 @@ const PlantInfo = () => {
   // console.log(data);
   const { name, image, description, category, price } = data.plants;
 
+  //EXAMPLE OF useLocation...
+  // const location = useLocation();
+  // console.log(location);
+  // - hash
+  // - key
+  // - pathname
+  // - search
+  // - state - we can use this to carry data from one page to another
+
+  const [cart, setCart] = useState([]);
+
   return (
     <div>
       <h1 className="my-8 text-2xl">Plant Details</h1>
@@ -41,8 +53,14 @@ const PlantInfo = () => {
           <p>{description}</p>
           <p>Category: {category}</p>
           <p>Price: ${price}</p>
+
           <div className="justify-end card-actions">
-            <button className="btn btn-primary">Add to Cart</button>
+            <button
+              onClick={() => setCart((prev) => [...prev, data.plants])}
+              className="btn btn-primary"
+            >
+              Add to Cart
+            </button>
           </div>
         </div>
       </div>

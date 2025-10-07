@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router";
+import ThemeToggle from "./ThemeToggle";
+import { ShoppingCart } from "lucide-react";
 
 const Navbar = () => {
   return (
@@ -30,6 +32,7 @@ const Navbar = () => {
             <li> <Link to='/'>Home</Link> </li>
             <li> <Link to='/contact'>Contact</Link> </li>
             <li> <Link to='/about'>About</Link> </li>
+            <li> <Link to='/cart'><ShoppingCart /></Link> </li>
 
           </ul>
         </div>
@@ -40,10 +43,19 @@ const Navbar = () => {
             <li> <Link to='/'>Home</Link> </li>
             <li> <Link to='/contact'>Contact</Link> </li>
             <li> <Link to='/about'>About</Link> </li>
+
+            <li> 
+              <Link to='/cart'>
+                <div className="relative">
+                  <ShoppingCart />
+                  <span className="-top-2 -right-2 absolute font-bold">0</span>
+                </div>
+              </Link> 
+            </li>
         </ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        <ThemeToggle/>
       </div>
     </nav>
   );

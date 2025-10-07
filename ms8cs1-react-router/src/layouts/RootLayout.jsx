@@ -1,15 +1,23 @@
 import React from "react";
-import { Outlet } from "react-router";
+import { Outlet, useNavigation } from "react-router";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import Loading from "../components/Loading";
 
 const RootLayout = () => {
+  const navigation = useNavigation();
+  // console.log(navigation.state);
+
   return (
     <>
       <Navbar />
-      <main className="mx-auto w-11/12 min-h-[calc(100vh-285px)]">
-        <Outlet />
-      </main>
+      {navigation.state === "loading" ? (
+        <Loading />
+      ) : (
+        <main className="mx-auto w-11/12 min-h-[calc(100vh-285px)]">
+          <Outlet/>
+        </main>
+      )}
       <Footer />
     </>
   );

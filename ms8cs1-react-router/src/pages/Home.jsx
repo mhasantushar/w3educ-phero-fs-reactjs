@@ -24,7 +24,7 @@ const Home = () => {
         Home
       </h1>
 
-      <div className='gap-8 grid grid-cols-3'>
+      <div className='gap-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4'>
         {plantsData.map((plant) => (
           <PlantCard key={plant.id} plant={plant} />
         ))}
