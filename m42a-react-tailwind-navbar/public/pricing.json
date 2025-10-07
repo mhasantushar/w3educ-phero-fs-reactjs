@@ -1,0 +1,60 @@
+[
+  {
+    "id": 1,
+    "planName": "Basic Plan",
+    "priceMonthly": 25,
+    "priceYearly": 250,
+    "features": [
+      "Access to gym equipment",
+      "Locker facility",
+      "Open 6 AM – 10 PM"
+    ],
+    "buttonText": "Join Now",
+    "popular": false
+  },
+  {
+    "id": 2,
+    "planName": "Standard Plan",
+    "priceMonthly": 45,
+    "priceYearly": 450,
+    "features": [
+      "All Basic features",
+      "Group fitness classes",
+      "Free Wi-Fi",
+      "1 personal training session/month",   
+      "Sauna access"
+    ],
+    "buttonText": "Get Started",
+    "popular": true
+  },
+  {
+    "id": 3,
+    "planName": "Premium Plan",
+    "priceMonthly": 70,
+    "priceYearly": 700,
+    "features": [
+      "All Standard features",
+      "Unlimited personal training",
+      "Diet & nutrition plan",
+      "Free Snacks & drinks",
+      "Free Swimming pool access",
+      "24/7 gym access"
+    ],
+    "buttonText": "Upgrade Now",
+    "popular": false
+  },
+  {
+    "id": 4,
+    "planName": "Student Plan",
+    "priceMonthly": 20,
+    "priceYearly": 200,
+    "features": [
+      "Full gym access",
+      "Discounted fitness classes",
+      "Student ID required",
+      "Open 7 AM – 9 PM"
+    ],
+    "buttonText": "Enroll",
+    "popular": false
+  }
+]
