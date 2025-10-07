@@ -3,13 +3,17 @@ import { Outlet, useNavigation } from "react-router";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Loading from "../components/Loading";
+import { useState } from "react";
+import { CartContext } from "../providers/CartContext";
 
 const RootLayout = () => {
   const navigation = useNavigation();
   // console.log(navigation.state);
 
+  const [cart, setCart] = useState([]);
+
   return (
-    <>
+    <CartContext.Provider value={{cart, setCart}}>
       <Navbar />
       {navigation.state === "loading" ? (
         <Loading />
@@ -19,7 +23,7 @@ const RootLayout = () => {
         </main>
       )}
       <Footer />
-    </>
+    </CartContext.Provider>
   );
 };
 

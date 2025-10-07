@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import { useLoaderData, useLocation } from "react-router";
+import { CartContext } from "../providers/CartContext";
+import { useContext } from "react";
 // import axios from "axios";
 // import { useEffect } from "react";
 // import { useState } from "react";
@@ -39,7 +41,7 @@ const PlantInfo = () => {
   // - search
   // - state - we can use this to carry data from one page to another
 
-  const [cart, setCart] = useState([]);
+  const { cart, setCart } = useContext(CartContext);
 
   return (
     <div>
