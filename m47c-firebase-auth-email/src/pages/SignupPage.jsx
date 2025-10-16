@@ -1,4 +1,8 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  updateProfile,
+} from "firebase/auth";
 import React, { useState } from "react";
 import auth from "../firebase/firebase.init";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
@@ -11,8 +15,10 @@ const SignupPage = () => {
 
   const handleUserSignUp = (event) => {
     event.preventDefault();
+    const userName = event.target.fname.value
     const userMail = event.target.fmail.value;
     const userPass = event.target.fpass.value;
+    const userPURL = event.target.fphoto.value;
     const termAndC = event.target.fterm.checked;
 
     setSignupSuccess(false);
@@ -38,6 +44,25 @@ const SignupPage = () => {
         const user = userCredential.user;
         console.log(user);
         setSignupSuccess(true);
+        event.target.reset();
+
+        const userProfile ={
+          displayName: userName || '',
+          photoURL: userPURL || '',
+        }
+
+        updateProfile(user,userProfile)
+        .catch(error => {
+          alert(`${error.message}`);
+        })
+
+        sendEmailVerification(user)
+        .then(() => {
+          alert("Verification email has been sent, please check your mailbox.");
+        })
+        .catch(error=>{
+          alert(`Error sending verification email. ${error.message}`)
+        })
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -59,12 +84,21 @@ const SignupPage = () => {
         <fieldset className="bg-base-200 p-4 border border-base-300 rounded-box w-xs fieldset">
           <legend className="fieldset-legend">Sign Up</legend>
 
-          <label className="label">Email</label>
+          <label className="label">Name</label>
+          <input
+            type="text"
+            className="input"
+            placeholder="Full Name"
+            name="fname"
+          />
+
+          <label className="label">Email Address</label>
           <input
             type="email"
             className="input"
             placeholder="Email"
             name="fmail"
+            required
           />
 
           <label className="label">Password</label>
@@ -74,6 +108,7 @@ const SignupPage = () => {
               className="input"
               placeholder="Password"
               name="fpass"
+              required
             />
             <button
               onClick={handlePasswordVisibility}
@@ -82,6 +117,14 @@ const SignupPage = () => {
               {passwordVisible ? <LuEye /> : <LuEyeClosed />}
             </button>
           </div>
+
+          <label className="label">Photo</label>
+          <input
+            type="url"
+            className="input"
+            placeholder="Photo URL"
+            name="fphoto"
+          />
 
           <label className="label">
             <input
@@ -96,8 +139,11 @@ const SignupPage = () => {
             Sign Up
           </button>
           <p>
-            Already have an account? <Link className="font-semibold underline" to="/signin">Click here</Link> to
-            sign in.
+            Already have an account?{" "}
+            <Link className="font-semibold link link-hover" to="/signin">
+              Click here
+            </Link>{" "}
+            to sign in.
           </p>
         </fieldset>
       </form>
