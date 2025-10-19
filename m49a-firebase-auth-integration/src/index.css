@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+.menu a.active{
+  font-weight: bold;
+  text-decoration: underline;
+  color: indigo;
+}
