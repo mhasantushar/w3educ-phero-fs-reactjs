@@ -1,9 +1,14 @@
-import React from "react";
+import React, { use } from "react";
 import { Link } from "react-router";
-import fbaseAuth from "../firebase/firebase.init";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+// import fbaseAuth from "../firebase/firebase.init";
+// import { createUserWithEmailAndPassword } from "firebase/auth";
+import AuthContext from "../contexts/AuthContext";
 
 const SignonComp = () => {
+  // const authInfo = use(AuthContext);
+  // // console.log (authInfo);
+  const { createUserAccount } = use(AuthContext);
+
   const handleUserSignOn = (e) => {
     e.preventDefault();
 
@@ -11,13 +16,16 @@ const SignonComp = () => {
     const vMail = e.target.fmail?.value;
     const vPass = e.target.fpass?.value;
     const vPurl = e.target.fpurl?.value;
-    // const vTerm = e.target.fterm?.checked;
+    const vTerm = e.target.fterm?.checked;
     // console.log (vName, vMail, vPass, vPurl);
 
-    createUserWithEmailAndPassword(fbaseAuth, vMail, vPass)
+    // createUserWithEmailAndPassword(fbaseAuth, vMail, vPass)
+    // above direct function call is replaced by a function from authContext in the line below
+    createUserAccount(vMail, vPass)
       .then((userCredential) => {
         const user = userCredential.user;
         alert(`Account ${user.email} has been created!`);
+        e.target.reset();
       })
       .catch((error) => {
         alert(`Account creation failed!

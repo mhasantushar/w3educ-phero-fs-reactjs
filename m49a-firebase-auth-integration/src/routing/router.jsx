@@ -4,6 +4,10 @@ import RootLayout from "../layouts/RootLayout";
 import HomePage from "../pages/HomePage";
 import SignonComp from "../compos/SignonComp";
 import SigninComp from "../compos/SigninComp";
+import OrdersComp from "../compos/OrdersComp";
+import ProfileComp from "../compos/ProfileComp";
+import PrivateRoute from "./PrivateRoute";
+import DashComp from "../compos/DashComp";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +25,30 @@ const router = createBrowserRouter([
       {
         path: "/signin",
         element: <SigninComp />,
+      },
+      {
+        path: "/orders",
+        element: (
+          <PrivateRoute>
+            <OrdersComp />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <PrivateRoute>
+            <ProfileComp />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "dashboard",
+        element: (
+          <PrivateRoute>
+            <DashComp />
+          </PrivateRoute>
+        ),
       },
     ],
   },

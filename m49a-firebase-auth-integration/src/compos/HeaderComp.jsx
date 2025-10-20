@@ -1,21 +1,48 @@
-import React from "react";
-import { NavLink } from "react-router";
-import '../index.css'
+import React, { use } from "react";
+import { Link, NavLink } from "react-router";
+import "../index.css";
+import AuthContext from "../contexts/AuthContext";
 
 const HeaderComp = () => {
+  const { loggedInUser, signOutUserAccount } = use(AuthContext);
+
   const navLinks = (
     <>
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink to="/signin">Sing In</NavLink>
+        <NavLink to="/signin">Sign In</NavLink>
       </li>
       <li>
         <NavLink to="/signon">Sign On</NavLink>
       </li>
+      <li>
+        <NavLink to="/dashboard">Dashboard</NavLink>
+      </li>
+      {loggedInUser && (
+        <>
+          <li>
+            <NavLink to="/orders">Orders</NavLink>
+          </li>
+          <li>
+            <NavLink to="/profile">Profile</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
+
+  const handleSignOut = () => {
+    signOutUserAccount()
+      .then(() => {
+        alert("Sign out successful");
+      })
+      .catch((error) => {
+        alert(`Sign out failed!
+        ${error.code} - ${error.message}`);
+      });
+  };
 
   return (
     <header>
@@ -39,6 +66,7 @@ const HeaderComp = () => {
                 />{" "}
               </svg>
             </div>
+
             <ul
               tabIndex="-1"
               className="z-1 bg-base-100 shadow mt-3 p-2 rounded-box w-52 menu menu-sm dropdown-content"
@@ -46,13 +74,28 @@ const HeaderComp = () => {
               {navLinks}
             </ul>
           </div>
-          <a className="text-xl btn btn-ghost">daisyUI</a>
+
+          {loggedInUser ? (
+            <a className="text-xl btn btn-ghost">{loggedInUser.email}</a>
+          ) : (
+            <Link to="/signin" className="text-xl btnbtn-ghost">
+              Sign in
+            </Link>
+          )}
         </nav>
         <nav className="hidden lg:flex navbar-center">
           <ul className="px-1 menu menu-horizontal">{navLinks}</ul>
         </nav>
         <nav className="navbar-end">
-          <a className="btn">Button</a>
+          {loggedInUser ? (
+            <a onClick={handleSignOut} className="btn">
+              Sign Out
+            </a>
+          ) : (
+            <Link to="/signin" className="btn">
+              Sign in
+            </Link>
+          )}
         </nav>
       </div>
     </header>
