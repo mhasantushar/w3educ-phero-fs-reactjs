@@ -7,12 +7,12 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBGbTtsNgE5erwZ5nhZn8t8opwVvBqMbFA",
-  authDomain: "w3educ-phero.firebaseapp.com",
-  projectId: "w3educ-phero",
-  storageBucket: "w3educ-phero.firebasestorage.app",
-  messagingSenderId: "146926840733",
-  appId: "1:146926840733:web:ed660c412fd6185a9bdd74"
+  apiKey: import.meta.env.VITE_FBASE_apiKey,
+  authDomain: import.meta.env.VITE_FBASE_authDomain,
+  projectId: import.meta.env.VITE_FBASE_projectId,
+  storageBucket: import.meta.env.VITE_FBASE_storageBucket,
+  messagingSenderId: import.meta.env.VITE_FBASE_messagingSenderId,
+  appId: import.meta.env.VITE_FBASE_appId,
 };
 
 // Initialize Firebase

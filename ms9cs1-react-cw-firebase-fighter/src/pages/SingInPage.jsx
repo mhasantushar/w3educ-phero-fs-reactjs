@@ -1,17 +1,22 @@
 import "../index.css";
 import React, { useState } from "react";
+import fbaseAuth from "../firebase/firebase.init";
 import WrapperComp from "../compos/WrapperComp";
 import { Link } from "react-router";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
-import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
-import fbaseAuth from "../firebase/firebase.init";
 import { toast } from "react-toastify";
+import {
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
 
 const googleProvider = new GoogleAuthProvider();
-
+const githubProvider = new GithubAuthProvider();
 
 const SingInPage = () => {
-
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(null);
 
@@ -35,29 +40,29 @@ const SingInPage = () => {
       });
   };
 
-  const handleGoogleSignin = (e) =>{
+  const handleGoogleSignin = (e) => {
     e.preventDefault();
 
     signInWithPopup(fbaseAuth, googleProvider)
-    .then(result => {
-      // This gives a Google Access Token. You can use it to access the Google API.
-      // const credential = GoogleAuthProvider.credentialFromResult(result);
-      // const token = credential.accessToken;
-      // The signed-in user info.
-      const user = result.user;
-      // IdP data available using getAdditionalUserInfo(result)
+      .then((result) => {
+        // This gives a Google Access Token. You can use it to access the Google API.
+        // const credential = GoogleAuthProvider.credentialFromResult(result);
+        // const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        // IdP data available using getAdditionalUserInfo(result)
 
-      toast.success(`User ${user.email} logged in successfully.`);
-      setLoggedInUser(user);      
-    })
+        toast.success(`User ${user.email} logged in successfully.`);
+        setLoggedInUser(user);
+      })
       .catch((error) => {
-    // The email of the user's account used.
-    const email = error.customData.email;
-    // The AuthCredential type that was used.
-    // const credential = GoogleAuthProvider.credentialFromError(error);
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        // const credential = GoogleAuthProvider.credentialFromError(error);
         toast.error(`Login with ${email} failed - ${error.message}.`);
       });
-  }
+  };
 
   const handleUserSignOut = () => {
     signOut(fbaseAuth)

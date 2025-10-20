@@ -9,7 +9,7 @@ const RootLayout = () => {
       <HeaderComp />
       <Outlet />
 
-      <ToastContainer />
+      <ToastContainer theme="colored"/>
     </div>
   );
 };
