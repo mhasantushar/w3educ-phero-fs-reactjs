@@ -45,14 +45,42 @@ const SingInPage = () => {
 
     signInWithPopup(fbaseAuth, googleProvider)
       .then((result) => {
-        // This gives a Google Access Token. You can use it to access the Google API.
+        // This gives a Google Access Token - used to access the Google API.
         // const credential = GoogleAuthProvider.credentialFromResult(result);
         // const token = credential.accessToken;
+
         // The signed-in user info.
         const user = result.user;
         // IdP data available using getAdditionalUserInfo(result)
 
         toast.success(`User ${user.email} logged in successfully.`);
+        setLoggedInUser(user);
+      })
+      .catch((error) => {
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        // const credential = GoogleAuthProvider.credentialFromError(error);
+        toast.error(`Login with ${email} failed - ${error.message}.`);
+      });
+  };
+
+  const handleGithubSignIn = (e) => {
+    e.preventDefault();
+
+    signInWithPopup(fbaseAuth, githubProvider)
+      .then((result) => {
+        // This gives a GitHub Access Token - used to access the GitHub API.
+        // const credential = GithubAuthProvider.credentialFromResult(result);
+        // const token = credential.accessToken;
+
+        // The signed-in user info.
+        const user = result.user;
+        // console.log(user);
+        
+        // IdP data available using getAdditionalUserInfo(result)
+
+        toast.success(`User ${user.displayName} logged in successfully.`);
         setLoggedInUser(user);
       })
       .catch((error) => {
@@ -189,7 +217,7 @@ const SingInPage = () => {
                 {/* Github Signin */}
                 <button
                   type="button"
-                  // onClick={handleGithubSignin}
+                  onClick={handleGithubSignIn}
                   className="flex justify-center items-center gap-3 bg-white hover:bg-gray-100 px-5 py-2 rounded-lg w-full font-semibold text-gray-800 transition-colors cursor-pointer"
                 >
                   <img
