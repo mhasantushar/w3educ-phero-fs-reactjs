@@ -2,7 +2,11 @@ import "../index.css";
 import fbaseAuth from "../firebase/firebase.init";
 import WrapperComp from "../compos/WrapperComp";
 import React, { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  updateProfile,
+} from "firebase/auth";
 import { Link } from "react-router";
 import { toast } from "react-toastify";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
@@ -36,12 +40,44 @@ const SignUpPage = () => {
 
     createUserWithEmailAndPassword(fbaseAuth, vMail, vPass)
       .then((userCredential) => {
-        e.target.reset();
+        // e.target.reset();
+        // console.log(userCredential);
+
         const user = userCredential.user;
         toast.success(`Accout for ${user.email} has been created.`);
+
+        // now updating additional profile info..
+        updateProfile(fbaseAuth.currentUser, {
+          displayName: vName,
+          photoURL: vPhoto,
+        })
+          .then(() => {
+            // additional profile info updated
+          })
+          .catch((err) => {
+            toast.warn(
+              `Account created, but additional info not updated! ${err.code} - ${err.message}.`
+            );
+          });
+        // updating additional profile info done
+
+        // now sending verifucation email..
+        sendEmailVerification(fbaseAuth.currentUser)
+          .then(() => {
+            const email = fbaseAuth.currentUser.email;
+            toast.info(`Verification email sent to ${email}`);
+          })
+          .catch((err) => {
+            toast.warn(
+              `Account created, but verification email not sent! ${err.code} - ${err.message}.`
+            );
+          });
+          // sending verification email done
       })
-      .catch((authError) => {
-        toast.error(`${authError.code} - ${authError.message}.`);
+      .catch((error) => {
+        toast.error(
+          `Account creation failed! ${error.code} - ${error.message}.`
+        );
       });
   };
 

@@ -1,5 +1,5 @@
 import "../index.css";
-import React, { useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import fbaseAuth from "../firebase/firebase.init";
 import WrapperComp from "../compos/WrapperComp";
 import { Link } from "react-router";
@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import {
   GithubAuthProvider,
   GoogleAuthProvider,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -16,9 +17,13 @@ import {
 const googleProvider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
 
+
 const SingInPage = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(null);
+  
+  // const [emailFieldInput, setEmailFieldInput] = useState(""); // using controlled component approach to get email field's value
+  const refEmailInputField = useRef(null); // using reference hook, an alternet approach to get email field's value
 
   const handleEmailSignIn = (e) => {
     e.preventDefault();
@@ -30,13 +35,24 @@ const SingInPage = () => {
 
     signInWithEmailAndPassword(fbaseAuth, vMail, vPass)
       .then((userCredential) => {
-        e.target.reset();
+        // e.target.reset();
+        // console.log(userCredential);
+
         const user = userCredential.user;
+        console.log(user);
+
+        if (!user.emailVerified) {
+          toast.info(
+            `Please confirm verication email sent to ${user.email} first.`
+          );
+          return;
+        }
+
         toast.success(`User ${user.email} logged in successfully.`);
         setLoggedInUser(user);
       })
-      .catch((authError) => {
-        toast.error(`${authError.code} - ${authError.message}.`);
+      .catch((error) => {
+        toast.error(`Login attempt failed! ${error.code} - ${error.message}.`);
       });
   };
 
@@ -45,6 +61,8 @@ const SingInPage = () => {
 
     signInWithPopup(fbaseAuth, googleProvider)
       .then((result) => {
+        // console.log(result);
+
         // This gives a Google Access Token - used to access the Google API.
         // const credential = GoogleAuthProvider.credentialFromResult(result);
         // const token = credential.accessToken;
@@ -59,6 +77,7 @@ const SingInPage = () => {
       .catch((error) => {
         // The email of the user's account used.
         const email = error.customData.email;
+
         // The AuthCredential type that was used.
         // const credential = GoogleAuthProvider.credentialFromError(error);
         toast.error(`Login with ${email} failed - ${error.message}.`);
@@ -70,6 +89,8 @@ const SingInPage = () => {
 
     signInWithPopup(fbaseAuth, githubProvider)
       .then((result) => {
+        // console.log(result);
+
         // This gives a GitHub Access Token - used to access the GitHub API.
         // const credential = GithubAuthProvider.credentialFromResult(result);
         // const token = credential.accessToken;
@@ -77,7 +98,7 @@ const SingInPage = () => {
         // The signed-in user info.
         const user = result.user;
         // console.log(user);
-        
+
         // IdP data available using getAdditionalUserInfo(result)
 
         toast.success(`User ${user.displayName} logged in successfully.`);
@@ -86,9 +107,26 @@ const SingInPage = () => {
       .catch((error) => {
         // The email of the user's account used.
         const email = error.customData.email;
+
         // The AuthCredential type that was used.
         // const credential = GoogleAuthProvider.credentialFromError(error);
         toast.error(`Login with ${email} failed - ${error.message}.`);
+      });
+  };
+
+  const handleUserResetPassword = () => {
+    // console.log(emailFieldInput); // to get email value using controlled comnent
+    // console.log(refEmailInputField); // alternet approach to get the email field's value
+    const email = refEmailInputField.current.value;
+
+    sendPasswordResetEmail(fbaseAuth, email)
+      .then(() => {
+        toast.success(`Password reset email sent to ${email}.`);
+      })
+      .catch((err) => {
+        toast.error(
+          `Error sending password rest email! ${err.code} - ${err.message}`
+        );
       });
   };
 
@@ -98,8 +136,10 @@ const SingInPage = () => {
         toast.success("User signed off.");
         setLoggedInUser(null);
       })
-      .catch((authError) => {
-        toast.error(`${authError.code} - ${authError.message}.`);
+      .catch((error) => {
+        toast.error(
+          `Sign out attempt failed! ${error.code} - ${error.message}.`
+        );
       });
   };
 
@@ -142,6 +182,10 @@ const SingInPage = () => {
                 </h2>
                 <p className="text-white/80">{loggedInUser?.email}</p>
 
+                <button onClick={handleUserResetPassword} className="my-btn">
+                  Reset Password
+                </button>
+
                 <button onClick={handleUserSignOut} className="my-btn">
                   Sign Out
                 </button>
@@ -157,9 +201,9 @@ const SingInPage = () => {
                   <input
                     type="email"
                     name="fmail"
-                    // ref={emailRef}
-                    // value={email}
-                    // onChange={(e) => setEmail(e.target.value)}
+                    ref={refEmailInputField}
+                    // value={emailFieldInput}
+                    // onChange={(e) => setEmailFieldInput(e.target.value)}
                     placeholder="example@email.com"
                     className="bg-white/20 focus:outline-none focus:ring-2 focus:ring-blue-400 w-full text-white input input-bordered placeholder-white/60"
                   />
@@ -183,10 +227,10 @@ const SingInPage = () => {
 
                 <button
                   className="hover:underline cursor-pointer"
-                  // onClick={handleForgetPassword}
+                  onClick={handleUserResetPassword}
                   type="button"
                 >
-                  Forget password?
+                  Forgot password?
                 </button>
 
                 <button type="submit" className="my-btn">
@@ -208,7 +252,7 @@ const SingInPage = () => {
                 >
                   <img
                     src="https://www.svgrepo.com/show/475656/google-color.svg"
-                    alt="google"
+                    alt="Google"
                     className="w-5 h-5"
                   />
                   Continue with Google
@@ -222,7 +266,7 @@ const SingInPage = () => {
                 >
                   <img
                     src="https://img.icons8.com/fluency/48/github.png"
-                    alt="google"
+                    alt="Github"
                     className="w-5 h-5"
                   />
                   Continue with Github

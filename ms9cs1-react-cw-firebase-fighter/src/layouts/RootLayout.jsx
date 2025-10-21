@@ -1,6 +1,5 @@
 import React from "react";
 import { Outlet } from "react-router";
-import { ToastContainer } from "react-toastify";
 import HeaderComp from "../compos/HeaderComp";
 
 const RootLayout = () => {
@@ -8,8 +7,6 @@ const RootLayout = () => {
     <div>
       <HeaderComp />
       <Outlet />
-
-      <ToastContainer theme="colored"/>
     </div>
   );
 };
