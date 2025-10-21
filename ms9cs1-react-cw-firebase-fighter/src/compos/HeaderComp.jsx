@@ -1,35 +1,35 @@
 import { Link, NavLink } from "react-router";
-import logo from "../assets/img/firebase-logo.png";
-import WrapperComp from "./WrapperComp";
-// import MyLinkComp from "./MyLinkComp";
-import { use } from "react";
-// import { AuthContext } from "../context/AuthContext";
+import { useContext } from "react";
 import { toast } from "react-toastify";
 import { ClockLoader } from "react-spinners";
+import logo from "../assets/img/firebase-logo.png";
 import MyLinkComp from "./MyLinkComp";
+import WrapperComp from "./WrapperComp";
+import AuthContext from "../context/AuthContext";
 
 const HeaderComp = () => {
-  // const result = useContext(AuthContext);
-  // const { user, signoutUserFunc, setUser, loading, setLoading } =
-  //   use(AuthContext);
-  // console.log(user);
+  const { loggedInUser, setLoggedInUser, doSignOut } = useContext(AuthContext);
+  // console.log(loggedInUser);
 
-  // const handleSignout = () => {
-  //   signoutUserFunc()
-  //     .then(() => {
-  //       toast.success("Signout successful");
-  //       setUser(null);
-  //     })
-  //     .catch((e) => {
-  //       toast.error(e.message);
-  //     });
-  // };
+  const handleUserSignOut = () => {
+    // signOut(fbaseAuth) //went to context
+    doSignOut()
+      .then(() => {
+        toast.success("User signed off.");
+        setLoggedInUser(null);
+      })
+      .catch((error) => {
+        toast.error(
+          `Sign out attempt failed! ${error.code} - ${error.message}.`
+        );
+      });
+  };
 
   return (
     <div className="bg-slate-100f py-2 border-b border-b-slate-300">
       <WrapperComp className="flex justify-between items-center">
         <figure>
-          <img src={logo} className="w-[55px]" />
+          <img src={logo} className="w-18 h-18" />
         </figure>
         <ul className="flex items-center gap-2">
           {/* <li>
@@ -75,9 +75,39 @@ const HeaderComp = () => {
           </li>
         </ul>
 
-        <button className="bg-purple-500 px-4 py-2 rounded-md font-semibold text-white cursor-pointer">
-          <Link to={"/signin"}>Sign in</Link>
-        </button>
+        {loggedInUser ? (
+          <div className="space-y-3 text-center">
+            <div className="dropdown dropdown-hover dropdown-end">
+              <div tabIndex={0} role="button" className="m-1 btn btn-link">
+                <img
+                  src={
+                    loggedInUser?.photoURL ||
+                    "https://i.ibb.co/1GsJNNFs/App-Error.png"
+                  }
+                  className="mx-auto rounded-full w-12 h-12"
+                  alt="User's Photo"
+                />
+              </div>
+              <div
+                tabIndex="-1"
+                className="z-1 bg-base-100 shadow-md p-2 rounded-box w-52 dropdown-content menu"
+              >
+                <h2 className="font-semibold text-xl">
+                  {loggedInUser?.displayName || "Display name not found"}
+                </h2>
+                <p className="mb-4">{loggedInUser?.email}</p>
+
+                <button onClick={handleUserSignOut} className="my-btn">
+                  Sign Out
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <button className="bg-purple-500 px-4 py-2 rounded-md font-semibold text-white cursor-pointer">
+            <Link to={"/signin"}>Sign in</Link>
+          </button>
+        )}
       </WrapperComp>
     </div>
   );

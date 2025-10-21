@@ -1,27 +1,36 @@
 import "../index.css";
 import React, { useContext, useRef, useState } from "react";
-import fbaseAuth from "../firebase/firebase.init";
+// import fbaseAuth from "../firebase/firebase.init";
 import WrapperComp from "../compos/WrapperComp";
 import { Link } from "react-router";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
 import { toast } from "react-toastify";
-import {
-  GithubAuthProvider,
-  GoogleAuthProvider,
-  sendPasswordResetEmail,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  signOut,
-} from "firebase/auth";
+import // GithubAuthProvider,
+// GoogleAuthProvider,
+// sendPasswordResetEmail,
+// signInWithEmailAndPassword,
+// signInWithPopup,
+// signOut,
+"firebase/auth";  //went to context
+import AuthContext from "../context/AuthContext";
 
-const googleProvider = new GoogleAuthProvider();
-const githubProvider = new GithubAuthProvider();
-
+// const googleProvider = new GoogleAuthProvider(); //went to context
+// const githubProvider = new GithubAuthProvider(); //went to context
 
 const SingInPage = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [loggedInUser, setLoggedInUser] = useState(null);
-  
+  // const [loggedInUser, setLoggedInUser] = useState(null);  //went to context
+
+  const {
+    loggedInUser,
+    setLoggedInUser,
+    doSignInWithEmailAndPassword,
+    doSignInGoogleWithPopup,
+    doSignInGitHubWithPopup,
+    doSendPasswordResetEmail,
+    doSignOut,
+  } = useContext(AuthContext);
+
   // const [emailFieldInput, setEmailFieldInput] = useState(""); // using controlled component approach to get email field's value
   const refEmailInputField = useRef(null); // using reference hook, an alternet approach to get email field's value
 
@@ -33,7 +42,8 @@ const SingInPage = () => {
     const vPass = e.target.fpass?.value || "";
     // console.log({ vMail, vPass });
 
-    signInWithEmailAndPassword(fbaseAuth, vMail, vPass)
+    // signInWithEmailAndPassword(fbaseAuth, vMail, vPass)  //went to context
+    doSignInWithEmailAndPassword(vMail, vPass)
       .then((userCredential) => {
         // e.target.reset();
         // console.log(userCredential);
@@ -59,7 +69,8 @@ const SingInPage = () => {
   const handleGoogleSignin = (e) => {
     e.preventDefault();
 
-    signInWithPopup(fbaseAuth, googleProvider)
+    // signInWithPopup(fbaseAuth, googleProvider) //went to context
+    doSignInGoogleWithPopup()
       .then((result) => {
         // console.log(result);
 
@@ -87,7 +98,8 @@ const SingInPage = () => {
   const handleGithubSignIn = (e) => {
     e.preventDefault();
 
-    signInWithPopup(fbaseAuth, githubProvider)
+    // signInWithPopup(fbaseAuth, githubProvider) //went to context
+    doSignInGitHubWithPopup()
       .then((result) => {
         // console.log(result);
 
@@ -119,7 +131,8 @@ const SingInPage = () => {
     // console.log(refEmailInputField); // alternet approach to get the email field's value
     const email = refEmailInputField.current.value;
 
-    sendPasswordResetEmail(fbaseAuth, email)
+    // sendPasswordResetEmail(fbaseAuth, email) //went to context
+    doSendPasswordResetEmail(email)
       .then(() => {
         toast.success(`Password reset email sent to ${email}.`);
       })
@@ -131,7 +144,8 @@ const SingInPage = () => {
   };
 
   const handleUserSignOut = () => {
-    signOut(fbaseAuth)
+    // signOut(fbaseAuth) //went to context
+    doSignOut()
       .then(() => {
         toast.success("User signed off.");
         setLoggedInUser(null);
@@ -181,10 +195,6 @@ const SingInPage = () => {
                   {loggedInUser?.displayName || "Display name not found"}
                 </h2>
                 <p className="text-white/80">{loggedInUser?.email}</p>
-
-                <button onClick={handleUserResetPassword} className="my-btn">
-                  Reset Password
-                </button>
 
                 <button onClick={handleUserSignOut} className="my-btn">
                   Sign Out

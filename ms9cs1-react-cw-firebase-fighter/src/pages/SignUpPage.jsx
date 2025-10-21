@@ -1,18 +1,25 @@
 import "../index.css";
-import fbaseAuth from "../firebase/firebase.init";
+// import fbaseAuth from "../firebase/firebase.init";
 import WrapperComp from "../compos/WrapperComp";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
-  createUserWithEmailAndPassword,
-  sendEmailVerification,
-  updateProfile,
-} from "firebase/auth";
+  // createUserWithEmailAndPassword,
+  // sendEmailVerification,
+  // updateProfile,
+} from "firebase/auth"; //went to context
 import { Link } from "react-router";
 import { toast } from "react-toastify";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
+import AuthContext from "../context/AuthContext";
 
 const SignUpPage = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const {
+    doCreateUserWithEmailAndPassword,
+    doUpdateProfile,
+    doSendEmailVerification,
+  } = useContext(AuthContext);
 
   const handleEmailSignup = (e) => {
     e.preventDefault();
@@ -38,7 +45,8 @@ const SignUpPage = () => {
       return;
     }
 
-    createUserWithEmailAndPassword(fbaseAuth, vMail, vPass)
+    // createUserWithEmailAndPassword(fbaseAuth, vMail, vPass)  //went to context
+    doCreateUserWithEmailAndPassword(vMail, vPass)
       .then((userCredential) => {
         // e.target.reset();
         // console.log(userCredential);
@@ -47,10 +55,11 @@ const SignUpPage = () => {
         toast.success(`Accout for ${user.email} has been created.`);
 
         // now updating additional profile info..
-        updateProfile(fbaseAuth.currentUser, {
-          displayName: vName,
-          photoURL: vPhoto,
-        })
+        // updateProfile(fbaseAuth.currentUser, {
+        //   displayName: vName,
+        //   photoURL: vPhoto,
+        // })
+        doUpdateProfile(vName, vPhoto)
           .then(() => {
             // additional profile info updated
           })
@@ -62,17 +71,18 @@ const SignUpPage = () => {
         // updating additional profile info done
 
         // now sending verifucation email..
-        sendEmailVerification(fbaseAuth.currentUser)
+        // sendEmailVerification(fbaseAuth.currentUser) //went to context
+        doSendEmailVerification()
           .then(() => {
-            const email = fbaseAuth.currentUser.email;
-            toast.info(`Verification email sent to ${email}`);
+            // const email = fbaseAuth.currentUser.email;
+            toast.info(`Verification email sent to ${vMail}`);
           })
           .catch((err) => {
             toast.warn(
               `Account created, but verification email not sent! ${err.code} - ${err.message}.`
             );
           });
-          // sending verification email done
+        // sending verification email done
       })
       .catch((error) => {
         toast.error(
