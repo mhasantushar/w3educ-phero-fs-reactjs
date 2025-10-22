@@ -87,7 +87,7 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     //adding a listner..
     const unsubscribe = onAuthStateChanged(fbaseAuth, (savedUser) => {
-       console.log(savedUser);
+      // console.log(savedUser);
       setLoggedInUser(savedUser);
       setPageIsLoading(false);
     });

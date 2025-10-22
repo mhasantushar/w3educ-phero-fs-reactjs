@@ -5,6 +5,7 @@ import AboutPage from "../pages/AboutPage";
 import ProfilePage from "../pages/ProfilePage";
 import SignUpPage from "../pages/SignUpPage";
 import SingInPage from "../pages/SingInPage";
+import Private from "./Private";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/profile",
-        element: <ProfilePage />,
+        element: (
+          <Private>
+            <ProfilePage />
+          </Private>
+        ),
       },
       {
         path: "/signup",

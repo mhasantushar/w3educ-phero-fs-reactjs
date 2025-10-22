@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import { MoonLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import { useContext } from "react";
@@ -8,6 +8,7 @@ import WrapperComp from "./WrapperComp";
 import AuthContext from "../context/AuthContext";
 
 const HeaderComp = () => {
+  const navigate = useNavigate();
   const { loggedInUser, setLoggedInUser, doSignOut, pageIsLoading } =
     useContext(AuthContext);
   // console.log(loggedInUser);
@@ -18,6 +19,7 @@ const HeaderComp = () => {
       .then(() => {
         toast.success("User signed off.");
         setLoggedInUser(null);
+        navigate("/signin");
       })
       .catch((error) => {
         toast.error(
@@ -71,9 +73,11 @@ const HeaderComp = () => {
             <MyLinkComp to={"/about"}>About</MyLinkComp>
           </li>
 
-          <li>
-            <MyLinkComp to={"/profile"}>Profile</MyLinkComp>
-          </li>
+          {loggedInUser && (
+            <li>
+              <MyLinkComp to={"/profile"}>Profile</MyLinkComp>
+            </li>
+          )}
         </ul>
 
         {pageIsLoading ? (

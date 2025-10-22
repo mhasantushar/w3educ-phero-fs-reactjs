@@ -2,7 +2,7 @@ import "../index.css";
 import React, { useContext, useRef, useState } from "react";
 // import fbaseAuth from "../firebase/firebase.init";
 import WrapperComp from "../compos/WrapperComp";
-import { Link } from "react-router";
+import { Link, Navigate, useLocation, useNavigate } from "react-router";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
 import { toast } from "react-toastify";
 import // GithubAuthProvider,
@@ -21,6 +21,11 @@ const SingInPage = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   // const [loggedInUser, setLoggedInUser] = useState(null);  //went to context
 
+  const currentLocation = useLocation();
+  const intendedLocation = currentLocation.state || "/";
+  // console.log(intendedLocation);
+  const navigate = useNavigate();
+
   const {
     loggedInUser,
     setLoggedInUser,
@@ -34,6 +39,8 @@ const SingInPage = () => {
 
   // const [emailFieldInput, setEmailFieldInput] = useState(""); // using controlled component approach to get email field's value
   const refEmailInputField = useRef(null); // using reference hook, an alternet approach to get email field's value
+
+  // if (loggedInUser) return <Navigate to="/" replace />;
 
   const handleEmailSignIn = (e) => {
     e.preventDefault();
@@ -65,6 +72,7 @@ const SingInPage = () => {
 
         toast.success(`User ${user.email} logged in successfully.`);
         setLoggedInUser(user);
+        navigate(intendedLocation);
       })
       .catch((error) => {
         toast.error(`Login attempt failed! ${error.code} - ${error.message}.`);
@@ -90,6 +98,7 @@ const SingInPage = () => {
 
         toast.success(`User ${user.email} logged in successfully.`);
         setLoggedInUser(user);
+        navigate(intendedLocation);
       })
       .catch((error) => {
         // The email of the user's account used.
@@ -122,6 +131,7 @@ const SingInPage = () => {
 
         toast.success(`User ${user.displayName} logged in successfully.`);
         setLoggedInUser(user);
+        navigate(intendedLocation);
       })
       .catch((error) => {
         // The email of the user's account used.
