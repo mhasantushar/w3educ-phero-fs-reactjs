@@ -11,7 +11,7 @@ import // GithubAuthProvider,
 // signInWithEmailAndPassword,
 // signInWithPopup,
 // signOut,
-"firebase/auth";  //went to context
+"firebase/auth"; //went to context
 import AuthContext from "../context/AuthContext";
 
 // const googleProvider = new GoogleAuthProvider(); //went to context
@@ -29,6 +29,7 @@ const SingInPage = () => {
     doSignInGitHubWithPopup,
     doSendPasswordResetEmail,
     doSignOut,
+    // setPageIsLoading
   } = useContext(AuthContext);
 
   // const [emailFieldInput, setEmailFieldInput] = useState(""); // using controlled component approach to get email field's value
@@ -49,12 +50,16 @@ const SingInPage = () => {
         // console.log(userCredential);
 
         const user = userCredential.user;
-        console.log(user);
+        // console.log(user);
 
         if (!user.emailVerified) {
           toast.info(
             `Please confirm verication email sent to ${user.email} first.`
           );
+
+          // force sign out to cancel the progress made so far
+          doSignOut();
+          setLoggedInUser(null);
           return;
         }
 
@@ -64,6 +69,7 @@ const SingInPage = () => {
       .catch((error) => {
         toast.error(`Login attempt failed! ${error.code} - ${error.message}.`);
       });
+    // setPageIsLoading(false);
   };
 
   const handleGoogleSignin = (e) => {
@@ -93,6 +99,7 @@ const SingInPage = () => {
         // const credential = GoogleAuthProvider.credentialFromError(error);
         toast.error(`Login with ${email} failed - ${error.message}.`);
       });
+    // setPageIsLoading(false);
   };
 
   const handleGithubSignIn = (e) => {
@@ -124,6 +131,7 @@ const SingInPage = () => {
         // const credential = GoogleAuthProvider.credentialFromError(error);
         toast.error(`Login with ${email} failed - ${error.message}.`);
       });
+    // setPageIsLoading(false);
   };
 
   const handleUserResetPassword = () => {
@@ -141,6 +149,7 @@ const SingInPage = () => {
           `Error sending password rest email! ${err.code} - ${err.message}`
         );
       });
+    // setPageIsLoading(false);
   };
 
   const handleUserSignOut = () => {
@@ -155,6 +164,7 @@ const SingInPage = () => {
           `Sign out attempt failed! ${error.code} - ${error.message}.`
         );
       });
+    // setPageIsLoading(false);
   };
 
   return (

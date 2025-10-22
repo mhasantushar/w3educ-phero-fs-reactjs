@@ -2,23 +2,26 @@ import "../index.css";
 // import fbaseAuth from "../firebase/firebase.init";
 import WrapperComp from "../compos/WrapperComp";
 import React, { useContext, useState } from "react";
-import {
-  // createUserWithEmailAndPassword,
-  // sendEmailVerification,
-  // updateProfile,
-} from "firebase/auth"; //went to context
-import { Link } from "react-router";
+import // createUserWithEmailAndPassword,
+// sendEmailVerification,
+// updateProfile,
+"firebase/auth"; //went to context
+import { Link, Navigate, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
 import AuthContext from "../context/AuthContext";
 
 const SignUpPage = () => {
+  const navigate = useNavigate();
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const {
+    setLoggedInUser,
     doCreateUserWithEmailAndPassword,
     doUpdateProfile,
     doSendEmailVerification,
+    doSignOut,
+    // setPageIsLoading
   } = useContext(AuthContext);
 
   const handleEmailSignup = (e) => {
@@ -76,11 +79,22 @@ const SignUpPage = () => {
           .then(() => {
             // const email = fbaseAuth.currentUser.email;
             toast.info(`Verification email sent to ${vMail}`);
+
+            // force sign out to prevent auto sign in
+            doSignOut().then(() => {
+              setLoggedInUser(null);
+              navigate("/signin");
+            });
           })
           .catch((err) => {
             toast.warn(
               `Account created, but verification email not sent! ${err.code} - ${err.message}.`
             );
+            
+            // force sign out to prevent auto sign in
+            doSignOut().then(() => {
+              setLoggedInUser(null);
+            });
           });
         // sending verification email done
       })
@@ -89,6 +103,7 @@ const SignUpPage = () => {
           `Account creation failed! ${error.code} - ${error.message}.`
         );
       });
+    // setPageIsLoading(false);
   };
 
   return (

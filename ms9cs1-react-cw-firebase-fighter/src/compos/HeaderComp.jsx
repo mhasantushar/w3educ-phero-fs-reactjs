@@ -1,14 +1,15 @@
 import { Link, NavLink } from "react-router";
-import { useContext } from "react";
+import { MoonLoader } from "react-spinners";
 import { toast } from "react-toastify";
-import { ClockLoader } from "react-spinners";
+import { useContext } from "react";
 import logo from "../assets/img/firebase-logo.png";
 import MyLinkComp from "./MyLinkComp";
 import WrapperComp from "./WrapperComp";
 import AuthContext from "../context/AuthContext";
 
 const HeaderComp = () => {
-  const { loggedInUser, setLoggedInUser, doSignOut } = useContext(AuthContext);
+  const { loggedInUser, setLoggedInUser, doSignOut, pageIsLoading } =
+    useContext(AuthContext);
   // console.log(loggedInUser);
 
   const handleUserSignOut = () => {
@@ -75,7 +76,9 @@ const HeaderComp = () => {
           </li>
         </ul>
 
-        {loggedInUser ? (
+        {pageIsLoading ? (
+          <MoonLoader color="#6b3fd8" size={36} />
+        ) : loggedInUser ? (
           <div className="space-y-3 text-center">
             <div className="dropdown dropdown-hover dropdown-end">
               <div tabIndex={0} role="button" className="m-1 btn btn-link">
